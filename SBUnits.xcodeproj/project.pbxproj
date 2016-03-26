@@ -48,6 +48,7 @@
 		3C2A80D81BFFC5AE005FFF43 /* NOTICE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
 		3C2A80D91BFFC5AE005FFF43 /* SBUnits.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = SBUnits.podspec; sourceTree = "<group>"; };
 		3C2A80DA1BFFC5AE005FFF43 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3C886DB81CA600C50026E5F4 /* SBUnits.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SBUnits.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +73,7 @@
 		3C28953B1BFFB7A900C85BD2 = {
 			isa = PBXGroup;
 			children = (
+				3C886DB81CA600C50026E5F4 /* SBUnits.playground */,
 				3C2895471BFFB7A900C85BD2 /* Sources */,
 				3C2895531BFFB7A900C85BD2 /* Tests */,
 				3C2A80D61BFFC598005FFF43 /* Share */,
