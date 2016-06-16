@@ -20,7 +20,7 @@ class ScaleTest: XCTestCase {
   }
 
   func testScaleValue () {
-    let s = Scale.Value(1.0)
+    let s = Scale.value(1.0)
     
     XCTAssertEqual(s.factor, 1.0)
     XCTAssertNil(s.name)
@@ -28,7 +28,7 @@ class ScaleTest: XCTestCase {
   }
   
   func testScalePrefix() {
-    let s = Scale.Prefix(1.5, "name", "symbol")
+    let s = Scale.prefix(1.5, "name", "symbol")
     XCTAssertEqual(s.factor, 1.5)
     XCTAssertEqual(s.name, "name")
     XCTAssertEqual(s.symbol, "symbol")
@@ -45,7 +45,7 @@ class ScaleTest: XCTestCase {
   }
   
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

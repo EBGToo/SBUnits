@@ -31,9 +31,9 @@ public struct Quantity<D:Dimension> : Comparable {
   public let value : Double
   
   /** The `Quantity` unit */
-  public let unit  : Unit<D>
+  public let unit  : UnitX<D>
   
-  public init (value: Double, unit: Unit<D>) {
+  public init (value: Double, unit: UnitX<D>) {
     self.value = value
     self.unit  = unit
   }
@@ -44,7 +44,7 @@ public struct Quantity<D:Dimension> : Comparable {
   }
   
   /** Convert to a different Unit */
-  public func convert (unit: Unit<D>) -> Quantity<D> {
+  public func convert (_ unit: UnitX<D>) -> Quantity<D> {
     return Quantity (value: unit.convert (self.value, unit: self.unit), unit: unit)
   }
   
@@ -55,7 +55,7 @@ public struct Quantity<D:Dimension> : Comparable {
    *
    * - returns: A `Quantity` with the added result in the unit of `self`
    */
-  public func add (that: Quantity<D>) -> Quantity<D> {
+  public func add (_ that: Quantity<D>) -> Quantity<D> {
     return Quantity<D> (value: self.value + self.unit.convert(that.value, unit: that.unit),
       unit: self.unit)
   }
@@ -68,7 +68,7 @@ public struct Quantity<D:Dimension> : Comparable {
    *
    * - returns: A `Quantity` with the added result in `unit`.
    */
-  public func add (that: Quantity<D>, unit: Unit<D>) -> Quantity<D> {
+  public func add (_ that: Quantity<D>, unit: UnitX<D>) -> Quantity<D> {
     return Quantity<D> (value: unit.convert(self.value, unit: self.unit) + unit.convert(that.value, unit: that.unit),
       unit: unit)
   }
@@ -80,7 +80,7 @@ public struct Quantity<D:Dimension> : Comparable {
    *
    * - returns: A `Quantity` with the subtracted result in the unit of `self`.
    */
-  public func sub (that: Quantity<D>) -> Quantity<D> {
+  public func sub (_ that: Quantity<D>) -> Quantity<D> {
     return Quantity<D> (value: self.value - self.unit.convert(that.value, unit: that.unit),
       unit: self.unit)
   }
@@ -93,7 +93,7 @@ public struct Quantity<D:Dimension> : Comparable {
    *
    * - returns: A `Quantity` with the subtracted result in `unit`.
    */
-  public func sub (that: Quantity<D>, unit: Unit<D>) -> Quantity<D> {
+  public func sub (_ that: Quantity<D>, unit: UnitX<D>) -> Quantity<D> {
     return Quantity<D> (value: unit.convert(self.value, unit: self.unit) - unit.convert(that.value, unit: that.unit),
       unit: unit)
   }
@@ -108,8 +108,8 @@ public struct Quantity<D:Dimension> : Comparable {
    *
    * - returns: An optional `Quantity` in `unit` with the product result.
    */
-  public func mul<R:Dimension, S:Dimension> (that: Quantity<S>, unit: Unit<R>) -> Quantity<R>? {
-    guard DimensionBase.compatibleAsProduct(R.encoding, p1: D.encoding, p2: S.encoding) else { return nil }
+  public func mul<R:Dimension, S:Dimension> (_ that: Quantity<S>, unit: UnitX<R>) -> Quantity<R>? {
+    guard DimensionBase.compatibleAsProduct(r: R.encoding, p1: D.encoding, p2: S.encoding) else { return nil }
     guard self.unit.isScaleUnit && that.unit.isScaleUnit && unit.isScaleUnit else { return nil }
     return Quantity<R>(value: unit.convertFromRoot (self.valueToRoot * that.valueToRoot), unit: unit)
   }
@@ -124,8 +124,8 @@ public struct Quantity<D:Dimension> : Comparable {
    *
    * - returns: An optional `Quantity` in `unit` with the product result.
    */
-  public func div<R:Dimension, S:Dimension> (that: Quantity<S>, unit: Unit<R>) -> Quantity<R>? {
-    guard DimensionBase.compatibleAsQuotient(R.encoding, p1: D.encoding, p2: S.encoding) else { return nil }
+  public func div<R:Dimension, S:Dimension> (_ that: Quantity<S>, unit: UnitX<R>) -> Quantity<R>? {
+    guard DimensionBase.compatibleAsQuotient(r: R.encoding, p1: D.encoding, p2: S.encoding) else { return nil }
     guard self.unit.isScaleUnit && that.unit.isScaleUnit && unit.isScaleUnit else { return nil }
     return Quantity<R>(value: unit.convertFromRoot (self.valueToRoot / that.valueToRoot), unit: unit)
   }

@@ -20,16 +20,16 @@ class DimensionTest: XCTestCase {
   }
   
   func testDimensionBase () {
-    XCTAssertEqual(DimensionBase.Mass.rawValue, 0)
-    XCTAssertEqual(DimensionBase.Mass.name, "Mass")
-    XCTAssertEqual(DimensionBase.Mass.symbol, "M")
-    XCTAssertEqual(DimensionBase.Mass.description, DimensionBase.Mass.name)
+    XCTAssertEqual(DimensionBase.mass.rawValue, 0)
+    XCTAssertEqual(DimensionBase.mass.name, "Mass")
+    XCTAssertEqual(DimensionBase.mass.symbol, "M")
+    XCTAssertEqual(DimensionBase.mass.description, DimensionBase.mass.name)
     
     // ...
 
-    XCTAssertEqual(DimensionBase.Angle.rawValue, 7)
-    XCTAssertEqual(DimensionBase.Angle.name, "Angle")
-    XCTAssertEqual(DimensionBase.Angle.symbol, "R")
+    XCTAssertEqual(DimensionBase.angle.rawValue, 7)
+    XCTAssertEqual(DimensionBase.angle.name, "Angle")
+    XCTAssertEqual(DimensionBase.angle.symbol, "R")
     
     
     XCTAssertEqual(DimensionBase.DIMENSION_BASE_COUNT, 8)
@@ -37,71 +37,71 @@ class DimensionTest: XCTestCase {
   
   func testDimensionBaseEncode() {
     for power in Array<Int8>(arrayLiteral: 1, 2, 3, 4) {
-      XCTAssertEqual(DimensionBase.encode(DimensionBase.Mass, power),
+      XCTAssertEqual(DimensionBase.encode(DimensionBase.mass, power),
         DimensionBase.encode(power, 0, 0, 0, 0, 0, 0, 0))
       
       // ...
       
-      XCTAssertEqual(DimensionBase.encode(DimensionBase.Angle, power),
+      XCTAssertEqual(DimensionBase.encode(DimensionBase.angle, power),
         DimensionBase.encode(0, 0, 0, 0, 0, 0, 0, power))
     }
   }
   
   func testDimensionBaseDecode() {
     for power in Array<Int8>(arrayLiteral: 1, 2, 3, 4) {
-      XCTAssertEqual(DimensionBase.decode(DimensionBase.Mass,
-        DimensionBase.encode(DimensionBase.Mass, power)), power)
+      XCTAssertEqual(DimensionBase.decode(DimensionBase.mass,
+        DimensionBase.encode(DimensionBase.mass, power)), power)
     
-      XCTAssertEqual(DimensionBase.decode(DimensionBase.Angle,
-        DimensionBase.encode(DimensionBase.Angle, power)), power)
+      XCTAssertEqual(DimensionBase.decode(DimensionBase.angle,
+        DimensionBase.encode(DimensionBase.angle, power)), power)
     }
   }
   
   func testDimensionBaseCompatibleProduct () {
     XCTAssertTrue(DimensionBase.compatibleAsProduct(
-      DimensionBase.encode(1, -1, 0, 0, 0, 0, 0, 0),
+      r:  DimensionBase.encode(1, -1, 0, 0, 0, 0, 0, 0),
       p1: DimensionBase.encode(1, 0, 0, 0, 0, 0, 0, 0),
       p2: DimensionBase.encode(0, -1, 0, 0, 0, 0, 0, 0)))
 
   
     XCTAssertTrue(DimensionBase.compatibleAsProduct(
-      DimensionBase.encode(2, 0, 0, 0, 0, 0, 0, 0),
+      r:  DimensionBase.encode(2, 0, 0, 0, 0, 0, 0, 0),
       p1: DimensionBase.encode(1,  1, 0, 0, 0, 0, 0, 0),
       p2: DimensionBase.encode(1, -1, 0, 0, 0, 0, 0, 0)))
   }
   
   func testDimensionBaseCompatibleQuotient () {
     XCTAssertTrue(DimensionBase.compatibleAsQuotient(
-      DimensionBase.encode(1, 1, 0, 0, 0, 0, 0, 0),
+      r:  DimensionBase.encode(1, 1, 0, 0, 0, 0, 0, 0),
       p1: DimensionBase.encode(1, 0, 0, 0, 0, 0, 0, 0),
       p2: DimensionBase.encode(0, -1, 0, 0, 0, 0, 0, 0)))
     
     
     XCTAssertTrue(DimensionBase.compatibleAsQuotient(
-      DimensionBase.encode(0, 2, 0, 0, 0, 0, 0, 0),
+      r:  DimensionBase.encode(0, 2, 0, 0, 0, 0, 0, 0),
       p1: DimensionBase.encode(1,  1, 0, 0, 0, 0, 0, 0),
       p2: DimensionBase.encode(1, -1, 0, 0, 0, 0, 0, 0)))
   }
   
   func testExample() {
-    DimensionBase.encode(.Mass, 1)
-    DimensionBase.encode(.Mass, 127)
+    DimensionBase.encode(.mass, 1)
+    DimensionBase.encode(.mass, 127)
     
-    DimensionBase.encode(.Length, 1)
-    DimensionBase.encode(.Time, 1)
+    DimensionBase.encode(.length, 1)
+    DimensionBase.encode(.time, 1)
     
-    DimensionBase.decode(.Time, DimensionBase.encode(.Time, 10))
+    DimensionBase.decode(.time, DimensionBase.encode(.time, 10))
     
     Length.encoding
     Time.encoding
     Speed.encoding
     
-    DimensionBase.compatibleAsProduct(Length.encoding, p1: Speed.encoding, p2: Time.encoding)
+    DimensionBase.compatibleAsProduct(r: Length.encoding, p1: Speed.encoding, p2: Time.encoding)
     
   }
   
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

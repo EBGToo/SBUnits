@@ -79,18 +79,18 @@ public protocol Dimension {
  * - R: Angle
  */
 enum DimensionBase : Int {
-  case Mass = 0
-  case Length
-  case Time
-  case Current
-  case Temperature
-  case Intensity
-  case Amount
-  case Angle
+  case mass = 0
+  case length
+  case time
+  case current
+  case temperature
+  case intensity
+  case amount
+  case angle
   // plane angle
   // solid angle
   
-  static let DIMENSION_BASE_COUNT = 1 + Angle.rawValue
+  static let DIMENSION_BASE_COUNT = 1 + angle.rawValue
 
   /** The DimensionBase names */
   static var names   = ["Mass", "Length", "Time", "Current", "Temperature", "Intensity", "Amount", "Angle"]
@@ -115,8 +115,8 @@ enum DimensionBase : Int {
    *
    * - returns: The DimensionEncoding
    */
-  static func encode (base: DimensionBase, _ power: DimensionBaseEncoding) -> DimensionEncoding {
-    var encoding = Array<Int8>(count: DIMENSION_BASE_COUNT, repeatedValue: 0)
+  static func encode (_ base: DimensionBase, _ power: DimensionBaseEncoding) -> DimensionEncoding {
+    var encoding = Array<Int8>(repeating: 0, count: DIMENSION_BASE_COUNT)
     encoding[base.rawValue] = power
     return encoding
   }
@@ -130,7 +130,7 @@ enum DimensionBase : Int {
    *
    * - returns: The `DimensionEncoding`
    */
-  static func encode (powers: DimensionBaseEncoding...) -> DimensionEncoding {
+  static func encode (_ powers: DimensionBaseEncoding...) -> DimensionEncoding {
     precondition(powers.count == DIMENSION_BASE_COUNT)
     return powers
   }
@@ -143,7 +143,7 @@ enum DimensionBase : Int {
    *
    * - returns: The `DimensionBaseEncoding` of the base
    */
-  static func decode(base: DimensionBase, _ encoding: DimensionEncoding) -> DimensionBaseEncoding {
+  static func decode(_ base: DimensionBase, _ encoding: DimensionEncoding) -> DimensionBaseEncoding {
     return encoding[base.rawValue]
   }
   
@@ -157,7 +157,7 @@ enum DimensionBase : Int {
    *
    * - returns: The `DimensionEncoding`
    */
-  static func combine (base1 base1: DimensionBase, power1: DimensionBaseEncoding,
+  static func combine (_ base1: DimensionBase, power1: DimensionBaseEncoding,
     base2: DimensionBase, power2: DimensionBaseEncoding) -> DimensionEncoding {
       var encoding = encode (base1, power1)
       encoding[base2.rawValue] += power2
@@ -205,52 +205,52 @@ enum DimensionBase : Int {
  *
  */
 public enum Scale { // ScaleFactor
-  case Prefix (Double, String, String)   // factor, name, symbol
-  case Value (Double)
+  case prefix (Double, String, String)   // factor, name, symbol
+  case value (Double)
   
   /** The `Scale` factor */
   var factor : Double {
     switch self {
-    case let Prefix (factor, _, _): return factor
-    case let Value (factor): return factor
+    case let prefix (factor, _, _): return factor
+    case let value (factor): return factor
     }
   }
   
   /** The `Scale` name */
   var name : String? {
     switch self {
-    case let Prefix (_, name, _): return name
-    case Value: return nil
+    case let prefix (_, name, _): return name
+    case value: return nil
     }
   }
   
   /** The `Scale` symbol */
   var symbol : String? {
     switch self {
-    case let Prefix (_, _, symbol): return symbol
-    case Value: return nil
+    case let prefix (_, _, symbol): return symbol
+    case value: return nil
     }
   }
   
-  public static let yocto = Scale.Prefix (1e-24, "yocto", "y")
-  public static let zepto = Scale.Prefix (1e-21, "zepto", "z")
-  public static let atto  = Scale.Prefix (1e-18, "atto",  "a")
-  public static let femto = Scale.Prefix (1e-15, "femto", "f")
-  public static let pico  = Scale.Prefix (1e-12, "pico",  "p")
-  public static let nano  = Scale.Prefix (1e-09, "nano",  "n")
-  public static let micro = Scale.Prefix (1e-06, "micro", "µ")
-  public static let milli = Scale.Prefix (1e-03, "milli", "m")
-  public static let centi = Scale.Prefix (1e-02, "centi", "c")
-  public static let deci  = Scale.Prefix (1e-01, "deci",  "d")
+  public static let yocto = Scale.prefix (1e-24, "yocto", "y")
+  public static let zepto = Scale.prefix (1e-21, "zepto", "z")
+  public static let atto  = Scale.prefix (1e-18, "atto",  "a")
+  public static let femto = Scale.prefix (1e-15, "femto", "f")
+  public static let pico  = Scale.prefix (1e-12, "pico",  "p")
+  public static let nano  = Scale.prefix (1e-09, "nano",  "n")
+  public static let micro = Scale.prefix (1e-06, "micro", "µ")
+  public static let milli = Scale.prefix (1e-03, "milli", "m")
+  public static let centi = Scale.prefix (1e-02, "centi", "c")
+  public static let deci  = Scale.prefix (1e-01, "deci",  "d")
   //
-  public static let deca  = Scale.Prefix (1e+01, "deca",  "da")
-  public static let hect  = Scale.Prefix (1e+02, "hecto", "h")
-  public static let kilo  = Scale.Prefix (1e+03, "kilo",  "k")
-  public static let mega  = Scale.Prefix (1e+06, "mega",  "M")
-  public static let giga  = Scale.Prefix (1e+09, "giga",  "G")
-  public static let tera  = Scale.Prefix (1e+12, "tera",  "T")
-  public static let peta  = Scale.Prefix (1e+15, "peta",  "P")
-  public static let exa   = Scale.Prefix (1e+18, "exa",   "E")
-  public static let zetta = Scale.Prefix (1e+21, "zetta", "Z")
-  public static let yotta = Scale.Prefix (1e+24, "yotta", "Y")
+  public static let deca  = Scale.prefix (1e+01, "deca",  "da")
+  public static let hect  = Scale.prefix (1e+02, "hecto", "h")
+  public static let kilo  = Scale.prefix (1e+03, "kilo",  "k")
+  public static let mega  = Scale.prefix (1e+06, "mega",  "M")
+  public static let giga  = Scale.prefix (1e+09, "giga",  "G")
+  public static let tera  = Scale.prefix (1e+12, "tera",  "T")
+  public static let peta  = Scale.prefix (1e+15, "peta",  "P")
+  public static let exa   = Scale.prefix (1e+18, "exa",   "E")
+  public static let zetta = Scale.prefix (1e+21, "zetta", "Z")
+  public static let yotta = Scale.prefix (1e+24, "yotta", "Y")
 }

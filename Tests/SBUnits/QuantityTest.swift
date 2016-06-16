@@ -19,7 +19,7 @@ class QuantityTest: XCTestCase {
     super.tearDown()
   }
   
-  func assertNearly<D: Dimension> (q1: Quantity<D>, _ q2: Quantity<D>) {
+  func assertNearly<D: SBUnits.Dimension> (_ q1: Quantity<D>, _ q2: Quantity<D>) {
     XCTAssertTrue(abs((q1 - q2).valueToRoot) < DBL_EPSILON)
   }
   
@@ -164,7 +164,7 @@ class QuantityTest: XCTestCase {
   }
   
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

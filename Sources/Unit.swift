@@ -10,7 +10,7 @@
 // https://en.wikipedia.org/wiki/SI_derived_unit
 // https://en.wikipedia.org/wiki/Base_unit_(measurement)
 
-// MARK: Unit
+// MARK: UnitX
 
 /**
  * A `Unit` is a defined amount of a physical quantity.  `Units` fall into two categories, 'base
@@ -37,10 +37,10 @@
  * relationshp) or proceeds from Y up to its root and then down to X.
  *
  */
-public final class Unit<D:Dimension> {
+public final class UnitX<D:Dimension> {
   
   /** The `Unit` optional parent. */
-  public let parent : Unit<D>!
+  public let parent : UnitX<D>!
   
   /** The `Unit` scale. */
   public let scale  : Scale
@@ -55,7 +55,7 @@ public final class Unit<D:Dimension> {
   public let symbol : String
   
   /** The `Unit` root unit; can be a 'base unit' or a 'derived unit'  */
-  public var root : Unit<D> {
+  public var root : UnitX<D> {
     return nil == parent ? self : parent.root
   }
   
@@ -65,12 +65,12 @@ public final class Unit<D:Dimension> {
   }
   
   /** Check if `unit` is the `parent` of `self` */
-  func isParent (unit: Unit<D>) -> Bool {
+  func isParent (_ unit: UnitX<D>) -> Bool {
     return parent === unit
   }
 
   /** Check if `unit` is an ancestor (including `self`) of `self` */
-  func isAncestor (unit: Unit<D>) -> Bool {
+  func isAncestor (_ unit: UnitX<D>) -> Bool {
     return unit === self || (parent?.isAncestor(unit) ?? false)
   }
   
@@ -84,7 +84,7 @@ public final class Unit<D:Dimension> {
   /* Create an instance as a base unit (of the provided Dimension) */
   internal init (_ name: String, _ symbol: String) {
     self.parent = nil
-    self.scale  = Scale.Value(1.0)
+    self.scale  = Scale.value(1.0)
     self.offset = 0.0
 
     self.name   = name
@@ -92,7 +92,7 @@ public final class Unit<D:Dimension> {
   }
 
   /** Create an instance of a 'scaled unit' */
-  public init (_ parent: Unit<D>, _ name: String, _ symbol: String, scale: Scale, offset: Double = 0.0) {
+  public init (_ parent: UnitX<D>, _ name: String, _ symbol: String, scale: Scale, offset: Double = 0.0) {
     self.parent = parent
     self.scale  = scale
     self.offset = offset
@@ -103,15 +103,15 @@ public final class Unit<D:Dimension> {
   }
   
   /** Create an instance.  The `name` and `symbol` are derived from the `parent` and `scale. */
-  public convenience init (_ parent: Unit<D>, scale: Scale) {
+  public convenience init (_ parent: UnitX<D>, scale: Scale) {
     self.init (parent, (scale.name ?? "") + parent.name, (scale.symbol ?? "") + parent.symbol,
       scale: scale)
   }
 
   /** Create an instance */
-  public convenience init (_ parent: Unit<D>, _ name: String, _ symbol: String, scale: Double, offset: Double = 0.0) {
+  public convenience init (_ parent: UnitX<D>, _ name: String, _ symbol: String, scale: Double, offset: Double = 0.0) {
     self.init (parent, name, symbol,
-      scale: Scale.Value(scale),
+      scale: Scale.value(scale),
       offset: offset)
   }
   
@@ -126,7 +126,7 @@ public final class Unit<D:Dimension> {
    *
    * - returns: The converted value
    */
-  public func convertToParent (value: Double) -> Double {
+  public func convertToParent (_ value: Double) -> Double {
     return nil == parent
       ? value
       : scale.factor * value - offset
@@ -141,7 +141,7 @@ public final class Unit<D:Dimension> {
    *
    * - returns: The converted value
    */
-  public func convertFromParent (value: Double) -> Double {
+  public func convertFromParent (_ value: Double) -> Double {
     return nil == parent
       ? value
       : (value + offset) / scale.factor
@@ -156,7 +156,7 @@ public final class Unit<D:Dimension> {
    *
    * - returns: The converted value
    */
-  public func convertToRoot (value: Double) -> Double {
+  public func convertToRoot (_ value: Double) -> Double {
     return nil == parent
       ? value
       : parent.convertToRoot (convertToParent(value))
@@ -171,7 +171,7 @@ public final class Unit<D:Dimension> {
    *
    * - returns: The converted value
    */
-  public func convertFromRoot (value: Double) -> Double {
+  public func convertFromRoot (_ value: Double) -> Double {
     return nil == parent
       ? value
       : convertFromParent (parent.convertFromRoot (value))
@@ -186,7 +186,7 @@ public final class Unit<D:Dimension> {
    *
    * - return: the convert value in `self`.
    */
-  public func convert (value: Double, unit: Unit<D>) -> Double {
+  public func convert (_ value: Double, unit: UnitX<D>) -> Double {
     // It is important that if unit is a descendent of self.unit then the conversions only
     // progress up to self.unit.  This allows users to set their own 'effective base' unit, 
     // particularly important for a time epoch (J2000, Unix, etc).

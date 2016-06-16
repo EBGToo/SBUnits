@@ -11,15 +11,15 @@ import XCTest
 
 class UnitTest: XCTestCase {
   
-  var m1 : Unit<Mass>!
-  var m2 : Unit<Mass>!
-  var m3 : Unit<Mass>!
+  var m1 : UnitX<Mass>!
+  var m2 : SBUnits.UnitX<Mass>!
+  var m3 : SBUnits.UnitX<Mass>!
   
   override func setUp() {
     super.setUp()
-    m1 = Unit<Mass>("m1name", "m1")
-    m2 = Unit<Mass>(m1, "m2name", "m2", scale: 2.0, offset: 0.0)
-    m3 = Unit<Mass>(m2, "m3name", "m3", scale: 0.5, offset: 0.0)
+    m1 = SBUnits.UnitX<Mass>("m1name", "m1")
+    m2 = SBUnits.UnitX<Mass>(m1, "m2name", "m2", scale: 2.0, offset: 0.0)
+    m3 = SBUnits.UnitX<Mass>(m2, "m3name", "m3", scale: 0.5, offset: 0.0)
   }
   
   override func tearDown() {
@@ -72,7 +72,7 @@ class UnitTest: XCTestCase {
   }
   
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
   
