@@ -14,12 +14,15 @@ class UnitTest: XCTestCase {
   var m1 : UnitX<Mass>!
   var m2 : SBUnits.UnitX<Mass>!
   var m3 : SBUnits.UnitX<Mass>!
+  var m4 : SBUnits.UnitX<Mass>!
   
   override func setUp() {
     super.setUp()
     m1 = SBUnits.UnitX<Mass>("m1name", "m1")
     m2 = SBUnits.UnitX<Mass>(m1, "m2name", "m2", scale: 2.0, offset: 0.0)
     m3 = SBUnits.UnitX<Mass>(m2, "m3name", "m3", scale: 0.5, offset: 0.0)
+    m4 = SBUnits.UnitX<Mass>(m3, "m4name", "m4", scale: 1.5, offset: 10.0)
+
   }
   
   override func tearDown() {
@@ -70,6 +73,44 @@ class UnitTest: XCTestCase {
     XCTAssertEqual(m2.convertToRoot(2.0), 4.0)
     XCTAssertEqual(m3.convertToRoot(6.0), 6.0)
   }
+  
+  func testConverter () {
+
+    // M1 <==> M2
+    
+    let m1_to_m2 = UnitX.converter (m1, m2)
+    XCTAssertEqual(m2.convert(10, unit: m1), 5)
+    XCTAssertEqual(m2.convert(10, unit: m1), m1_to_m2 (10))
+
+    let m2_to_m1 = UnitX.converter (m2, m1)
+    XCTAssertEqual(m1.convert(10, unit: m2), m2_to_m1 (10))
+
+    // M1 <==> M3
+    
+    let m1_to_m3 = UnitX.converter (m1, m3)
+    XCTAssertEqual(m3.convert(10, unit: m1), m1_to_m3 (10))
+
+    let m3_to_m1 = UnitX.converter (m3, m1)
+    XCTAssertEqual(m1.convert(10, unit: m3), m3_to_m1 (10))
+    
+    // M1 <==> M4
+    
+    let m1_to_m4 = UnitX.converter (m1, m4)
+    XCTAssertEqual(m4.convert(10, unit: m1), m1_to_m4 (10))
+    
+    let m4_to_m1 = UnitX.converter (m4, m1)
+    XCTAssertEqual(m1.convert(10, unit: m4), m4_to_m1 (10))
+    
+    // M3 <==> M4
+    
+    let m3_to_m4 = UnitX.converter (m3, m4)
+    XCTAssertEqual(m4.convert(10, unit: m3), m3_to_m4 (10))
+    
+    let m4_to_m3 = UnitX.converter (m4, m3)
+    XCTAssertEqual(m3.convert(10, unit: m4), m4_to_m3 (10))
+    
+  }
+  
   
   func testPerformanceExample() {
     self.measure {

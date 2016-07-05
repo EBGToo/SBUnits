@@ -6,6 +6,10 @@
 //  Copyright © 2015 Opus Logica Inc. All rights reserved.
 //
 
+public func compose<T, U, V> (f: (U) -> V, g: (T) -> U) -> (T) -> V {
+  return { (x:T) in f (g (x)) }
+}
+
 // References:
 // https://en.wikipedia.org/wiki/SI_derived_unit
 // https://en.wikipedia.org/wiki/Base_unit_(measurement)
@@ -205,5 +209,44 @@ public final class UnitX<D:Dimension> {
       return convert(unit.convertToParent(value), unit: unit.parent!)
     }
   }
+  
+  /**
+   * Return a function that converts a value in `srcUnit` to `tgtUnit`
+   *
+   * - paremter unit: The unit for the returned value's input parameter
+   *
+   * - return: Function to convert from `unit` to `self`
+   */
+  public static func converter (_ srcUnit: UnitX<D>, _ tgtUnit: UnitX<D>) -> (Double) -> Double {
+    if srcUnit === tgtUnit {
+      return { $0 }
+    }
+      
+    else if srcUnit.isParent (tgtUnit) {
+      return { srcUnit.scale.factor * $0 - srcUnit.offset }
+    }
+      
+    else if srcUnit.isAncestor (tgtUnit) {
+      return compose (f: UnitX.converter (srcUnit, srcUnit.parent),
+                      g: UnitX.converter (srcUnit.parent, tgtUnit))
+    }
+      
+    else if tgtUnit.isParent (srcUnit) {
+      return { ($0 + tgtUnit.offset) / tgtUnit.scale.factor }
+    }
+      
+    else if tgtUnit.isAncestor(srcUnit) {
+      return compose (f: UnitX.converter (tgtUnit.parent, tgtUnit),
+                      g: UnitX.converter (srcUnit, tgtUnit.parent))
+    }
+    
+    else {
+      return { $0 }
+    }
+  }
 }
 
+extension UnitX : Equatable {}
+public func == <D:Dimension> (lhs:UnitX<D>, rhs:UnitX<D>) -> Bool {
+  return lhs === rhs
+}
