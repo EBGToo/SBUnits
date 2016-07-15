@@ -84,19 +84,19 @@ class DimensionTest: XCTestCase {
   }
   
   func testExample() {
-    DimensionBase.encode(.mass, 1)
-    DimensionBase.encode(.mass, 127)
+    _ = DimensionBase.encode(.mass, 1)
+    _ = DimensionBase.encode(.mass, 127)
     
-    DimensionBase.encode(.length, 1)
-    DimensionBase.encode(.time, 1)
+    _ = DimensionBase.encode(.length, 1)
+    _ = DimensionBase.encode(.time, 1)
     
-    DimensionBase.decode(.time, DimensionBase.encode(.time, 10))
+    _ = DimensionBase.decode(.time, DimensionBase.encode(.time, 10))
     
-    Length.encoding
-    Time.encoding
-    Speed.encoding
+    _ = Length.encoding
+    _ = Time.encoding
+    _ = Speed.encoding
     
-    DimensionBase.compatibleAsProduct(r: Length.encoding, p1: Speed.encoding, p2: Time.encoding)
+    _ = DimensionBase.compatibleAsProduct(r: Length.encoding, p1: Speed.encoding, p2: Time.encoding)
     
   }
   
