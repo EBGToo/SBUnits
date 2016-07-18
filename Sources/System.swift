@@ -18,89 +18,89 @@ let π = M_PI
 /** The `Mass` (M) dimension */
 public class Mass : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.mass, 1) }
 
-public let kilogram = UnitX<Mass>("kilogram", "kg")
+public let kilogram = Unit<Mass>("kilogram", "kg")
 
-public let gram = UnitX<Mass> (kilogram, "gram", "g",
+public let gram = Unit<Mass> (kilogram, "gram", "g",
   scale: 1.0e-3, offset: 0.0)
 
-public let milligram = UnitX<Mass> (kilogram, "milligram", "mg",
+public let milligram = Unit<Mass> (kilogram, "milligram", "mg",
   scale: 1.0e-6, offset: 0.0)
 
 // Officially: https://en.wikipedia.org/wiki/International_yard_and_pound
-public let pound = UnitX<Mass> (kilogram, "pound", "lb",
+public let pound = Unit<Mass> (kilogram, "pound", "lb",
   scale: 0.45359237, offset: 0.0)
 
-public let ounce = UnitX<Mass>(pound, "ounce", "oz",
+public let ounce = Unit<Mass>(pound, "ounce", "oz",
   scale: 1/16.0, offset: 0.0)
 
 /** The `Length` (L) dimension */
 public class Length : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.length, 1) }
 
-public let meter = UnitX<Length>("meter", "m")
+public let meter = Unit<Length>("meter", "m")
 
-public let millimeter = UnitX<Length> (meter, scale: Scale.milli)
-public let centimeter = UnitX<Length> (meter, scale: Scale.centi)
-public let kilometer  = UnitX<Length> (meter, scale: Scale.kilo)
+public let millimeter = Unit<Length> (meter, scale: Scale.milli)
+public let centimeter = Unit<Length> (meter, scale: Scale.centi)
+public let kilometer  = Unit<Length> (meter, scale: Scale.kilo)
 
 // Officially: https://en.wikipedia.org/wiki/Yard
-public let yard = UnitX<Length> (meter, "yard", "yd",
+public let yard = Unit<Length> (meter, "yard", "yd",
   scale: 0.9144, offset: 0.0)
 
-public let foot = UnitX<Length> (yard, "foot", "ft",
+public let foot = Unit<Length> (yard, "foot", "ft",
   scale: 1/3, offset: 0.0)
 
-public let inch = UnitX<Length> (foot, "inch", "in",
+public let inch = Unit<Length> (foot, "inch", "in",
   scale: 1/12, offset: 0.0)
 
-public let mile = UnitX<Length> (yard, "mile", "mile",
+public let mile = Unit<Length> (yard, "mile", "mile",
   scale: 1760, offset: 0.0)
 
 
 /** The `Time` (T) dimension */
 public class Time : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.time, 1) }
 
-public let second = UnitX<Time>("second", "s")
+public let second = Unit<Time>("second", "s")
 
-public let millisecond = UnitX<Time> (second, scale: Scale.milli)
-public let microsecond = UnitX<Time> (second, scale: Scale.micro)
-public let nanosecond  = UnitX<Time> (second, scale: Scale.nano)
+public let millisecond = Unit<Time> (second, scale: Scale.milli)
+public let microsecond = Unit<Time> (second, scale: Scale.micro)
+public let nanosecond  = Unit<Time> (second, scale: Scale.nano)
 
-public let minute = UnitX<Time> (second, "minute", "min", scale: 60.0)
-public let hour   = UnitX<Time> (second, "hour",   "hr",  scale: 3600.0)
+public let minute = Unit<Time> (second, "minute", "min", scale: 60.0)
+public let hour   = Unit<Time> (second, "hour",   "hr",  scale: 3600.0)
 
 /** The `Current` (I) dimension */
 public class Current : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.current, 1) }
 
-public let ampere = UnitX<Current>("ampere", "A")
+public let ampere = Unit<Current>("ampere", "A")
 
-public let milliampere = UnitX<Current>(ampere, scale: Scale.milli)
+public let milliampere = Unit<Current>(ampere, scale: Scale.milli)
 
 /** The `Temperature` (Θ) dimension */
 public class Temperature : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.temperature, 1) }
 
-public let kelvin     = UnitX<Temperature> ("kelvin", "K")
+public let kelvin     = Unit<Temperature> ("kelvin", "K")
 
-public let celsius    = UnitX<Temperature> (kelvin, "celsius",    "C",
+public let celsius    = Unit<Temperature> (kelvin, "celsius",    "C",
   scale: 1.0,       offset: -273.15)
 
-public let fahrenheit = UnitX<Temperature> (kelvin, "fahrenheit", "F",
+public let fahrenheit = Unit<Temperature> (kelvin, "fahrenheit", "F",
   scale: (5.0/9.0), offset: -255.37222222222222)
 
 /** The `Intensity` (J) dimension */
 public class Intensity : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.intensity, 1) }
 
-public let candela = UnitX<Intensity> ("candela", "cd")
+public let candela = Unit<Intensity> ("candela", "cd")
 
 /** The `Amount` (N) dimension */
 public class Amount : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.amount, 1) }
 
-public let mole = UnitX<Amount> ("mole", "mol")
+public let mole = Unit<Amount> ("mole", "mol")
 
 /** The (plane) `Angle` (R) dimension */
 public class Angle : Dimension { public static let encoding = DimensionBase.encode(DimensionBase.angle, 1) }
 
-public let radian = UnitX<Angle> ("radian", "rad")
-public let degree = UnitX<Angle> (radian, "degree", "deg", scale: π/180.0)
+public let radian = Unit<Angle> ("radian", "rad")
+public let degree = Unit<Angle> (radian, "degree", "deg", scale: π/180.0)
 
 // steradian
 
@@ -111,9 +111,9 @@ public let degree = UnitX<Angle> (radian, "degree", "deg", scale: π/180.0)
 // Acceleration
 public class Acceleration       : Dimension { public static let encoding = DimensionBase.encode(0, 1, -2, 0, 0, 0, 0, 0) }
 
-public let metersPerSecondPerSecond = UnitX<Acceleration>("metersPerSecondPerSecond", "m/s²")
+public let metersPerSecondPerSecond = Unit<Acceleration>("metersPerSecondPerSecond", "m/s²")
 
-public let feetPerSecondPerSecond = UnitX<Acceleration>(metersPerSecondPerSecond,
+public let feetPerSecondPerSecond = Unit<Acceleration>(metersPerSecondPerSecond,
   "feetPerSecondPerSecond", "ft/s²", scale: 0.3048)
 
 // Angular Acceleration
@@ -122,11 +122,11 @@ public class AngularSpeed       : Dimension { public static let encoding = Dimen
 public class AngularMomentum    : Dimension { public static let encoding = DimensionBase.encode(1, 2, -1, 0, 0, 0, 0, 0) }
 public class Area               : Dimension { public static let encoding = DimensionBase.encode(0, 2,  0, 0, 0, 0, 0, 0) }
 
-public let meterSquared = UnitX<Area>("meterSquared", "m²")
+public let meterSquared = Unit<Area>("meterSquared", "m²")
 
-public let footSquared = UnitX<Area>(meterSquared, "footSquared", "ft²", scale: 0.092903)
+public let footSquared = Unit<Area>(meterSquared, "footSquared", "ft²", scale: 0.092903)
 
-public let acre = UnitX<Area>(meterSquared, "acre", "acre", scale: 4046.86)
+public let acre = Unit<Area>(meterSquared, "acre", "acre", scale: 4046.86)
 
 // Area Density
 
@@ -143,13 +143,13 @@ public let acre = UnitX<Area>(meterSquared, "acre", "acre", scale: 4046.86)
 // Charge
 public class Charge : Dimension { public static let encoding = DimensionBase.encode(0, 0, 1, 1, 0, 0, 0, 0) }
 
-public let coulomb = UnitX<Charge>("coulomb", "C")
+public let coulomb = Unit<Charge>("coulomb", "C")
 
 // (Electric) Capacitance (I2 T4 M−1 L−2
 public class Capacitance : Dimension { public static let encoding = DimensionBase.encode(-1, -1, 4, 2, 0, 0, 0, 0) }
 
-public let farad     = UnitX<Capacitance> ("farad", "F")
-public let picofarad = UnitX<Capacitance> (farad, scale: Scale.pico)
+public let farad     = Unit<Capacitance> ("farad", "F")
+public let picofarad = Unit<Capacitance> (farad, scale: Scale.pico)
 
 // (Electric) Charge Density
 // (Electric) Displacement
@@ -158,40 +158,40 @@ public let picofarad = UnitX<Capacitance> (farad, scale: Scale.pico)
 // (Electric) Conductance (L−2 M−1 T3 I2)
 public class Conductance : Dimension { public static let encoding = DimensionBase.encode(-2, -1, 3, 2, 0, 0, 0, 0) }
 
-public let siemens = UnitX<Conductance>("seimens", "S")
+public let siemens = Unit<Conductance>("seimens", "S")
 
 // (Electric) Inductance (M L2 T−2 I−2)
 public class Inductance : Dimension { public static let encoding = DimensionBase.encode(1, 2, -2, -2, 0, 0, 0, 0) }
 
-public let henry = UnitX<Inductance>("henry", "H")
+public let henry = Unit<Inductance>("henry", "H")
 
 // (Electric) Potential (L2 M T−3 I−1)
 public class ElectricPotential : Dimension { public static let encoding = DimensionBase.encode(1, 2, -3, -1, 0, 0, 0, 0) }
 
-public let volt = UnitX<ElectricPotential>("volt", "V")
+public let volt = Unit<ElectricPotential>("volt", "V")
 
-public let kiloVolt  = UnitX<ElectricPotential> (volt, scale: Scale.kilo)
-public let milliVolt = UnitX<ElectricPotential> (volt, scale: Scale.milli)
+public let kiloVolt  = Unit<ElectricPotential> (volt, scale: Scale.kilo)
+public let milliVolt = Unit<ElectricPotential> (volt, scale: Scale.milli)
 
 // (Electric) Resistance (L2 M T−3 I−2)
 public class Resistance : Dimension { public static let encoding = DimensionBase.encode(1, 2, -3, -2, 0, 0, 0, 0) }
 
-public let ohm = UnitX<Resistance>("ohm", "Ω")
+public let ohm = Unit<Resistance>("ohm", "Ω")
 
-public let kiloOhm = UnitX<Resistance>(ohm, scale: Scale.kilo)
-public let megaOhm = UnitX<Resistance>(ohm, scale: Scale.mega)
-public let gigaoOhm = UnitX<Resistance>(ohm, scale: Scale.giga)
+public let kiloOhm = Unit<Resistance>(ohm, scale: Scale.kilo)
+public let megaOhm = Unit<Resistance>(ohm, scale: Scale.mega)
+public let gigaoOhm = Unit<Resistance>(ohm, scale: Scale.giga)
 
 // Energy
 public class Energy      : Dimension { public static let encoding = DimensionBase.encode(1, 2, -2, 0, 0, 0, 0, 0) }
 
-public let joule   = UnitX<Energy>("joule", "J")
+public let joule   = Unit<Energy>("joule", "J")
 
-public let milliJoule = UnitX<Energy>(joule, scale: Scale.milli)
-public let kiloJoule  = UnitX<Energy>(joule, scale: Scale.kilo)
-public let megaJoule  = UnitX<Energy>(joule, scale: Scale.mega)
+public let milliJoule = Unit<Energy>(joule, scale: Scale.milli)
+public let kiloJoule  = Unit<Energy>(joule, scale: Scale.kilo)
+public let megaJoule  = Unit<Energy>(joule, scale: Scale.mega)
 
-public let kcal = UnitX<Energy>(joule, "kilocalorie", "kcal", scale: 4184)
+public let kcal = Unit<Energy>(joule, "kilocalorie", "kcal", scale: 4184)
 
 
 // Energy Density
@@ -201,9 +201,9 @@ public let kcal = UnitX<Energy>(joule, "kilocalorie", "kcal", scale: 4184)
 // Force
 public class Force : Dimension { public static let encoding = DimensionBase.encode(1, 1, -2, 0, 0, 0, 0, 0) }
 
-public let newton  = UnitX<Force> ("newton", "N")
+public let newton  = Unit<Force> ("newton", "N")
 
-public let poundForce = UnitX<Force>(newton, "poundForce", "lbf", scale: 4.44822)
+public let poundForce = Unit<Force>(newton, "poundForce", "lbf", scale: 4.44822)
 
 // Fuel Efficiency
 
@@ -213,10 +213,10 @@ public class Impulse : Dimension { public static let encoding = DimensionBase.en
 // Frequencey
 public class Frequency : Dimension { public static let encoding = DimensionBase.encode(0, 0, -1, 0, 0, 0, 0, 0) }
 
-public let hertz = UnitX<Frequency> ("hertz", "Hz")
+public let hertz = Unit<Frequency> ("hertz", "Hz")
 
-public let kiloHertz = UnitX<Frequency> (hertz, scale: Scale.kilo)
-public let megaHertz = UnitX<Frequency> (hertz, scale: Scale.mega)
+public let kiloHertz = Unit<Frequency> (hertz, scale: Scale.kilo)
+public let megaHertz = Unit<Frequency> (hertz, scale: Scale.mega)
 
 // Half-Life
 // Heat
@@ -226,7 +226,7 @@ public let megaHertz = UnitX<Frequency> (hertz, scale: Scale.mega)
 // Illuminance (J L−2)
 public class Illuminance : Dimension { public static let encoding = DimensionBase.encode(0, -2, 0, 0, 0, 1, 0, 0) }
 
-public let lux  = UnitX<Illuminance> ("lux", "lx")
+public let lux  = Unit<Illuminance> ("lux", "lx")
 
 // Impedance (Resistance)
 // Index of Refraction
@@ -240,7 +240,7 @@ public let lux  = UnitX<Illuminance> ("lux", "lx")
 // Luminous Flux
 public class LuminousFlux : Dimension { public static let encoding = DimensionBase.encode(0, 0, 0, 0, 0, 1, 0, 0) }
 
-public let lumen  = UnitX<LuminousFlux> ("lumen", "lm")  // lm = cd sr
+public let lumen  = Unit<LuminousFlux> ("lumen", "lm")  // lm = cd sr
 
 // Mach Number
 
@@ -249,12 +249,12 @@ public let lumen  = UnitX<LuminousFlux> ("lumen", "lm")  // lm = cd sr
 // (Magnetic) Flux (M L2 T−2 I−1)
 public class MagneticFlux : Dimension { public static let encoding = DimensionBase.encode(1, 2, -2, -1, 0, 0, 0, 0) }
 
-public let weber = UnitX<MagneticFlux>("weber", "Wb")
+public let weber = Unit<MagneticFlux>("weber", "Wb")
 
 // (Magnetic) Flux Density (M T−2 I−1)
 public class MagneticFluxDensity : Dimension { public static let encoding = DimensionBase.encode(1, 0, -2, -1, 0, 0, 0, 0) }
 
-public let tesla = UnitX<MagneticFluxDensity>("tesla", "T")
+public let tesla = Unit<MagneticFluxDensity>("tesla", "T")
 
 // Magnetization
 // Mass Fraction
@@ -271,9 +271,9 @@ public class MomentOfInertia : Dimension { public static let encoding = Dimensio
 // Momentum
 public class Momentum : Dimension { public static let encoding = DimensionBase.encode(1, 1, -1, 0, 0, 0, 0, 0) }
 
-public let kilogramMeterPerSecond = UnitX<Momentum>("kilogram-meter/second", "kg-m/s")
+public let kilogramMeterPerSecond = Unit<Momentum>("kilogram-meter/second", "kg-m/s")
 
-public let newtonSecond = UnitX<Momentum>(kilogramMeterPerSecond, "Newton-second", "N-s", scale: 1.0) // alias
+public let newtonSecond = Unit<Momentum>(kilogramMeterPerSecond, "Newton-second", "N-s", scale: 1.0) // alias
 
 // Permeability
 // Permittivity
@@ -281,12 +281,12 @@ public let newtonSecond = UnitX<Momentum>(kilogramMeterPerSecond, "Newton-second
 // Power
 public class Power : Dimension { public static let encoding = DimensionBase.encode(1,  2, -3, 0, 0, 0, 0, 0) }
 
-public let watt = UnitX<Power>("watt", "W")
+public let watt = Unit<Power>("watt", "W")
 
 // Pressure
 public class Pressure : Dimension { public static let encoding = DimensionBase.encode(1, -1, -2, 0, 0, 0, 0, 0) }
 
-public let pascal = UnitX<Pressure>("pascal", "Pa")
+public let pascal = Unit<Pressure>("pascal", "Pa")
 
 // Pop
 
@@ -303,12 +303,12 @@ public let pascal = UnitX<Pressure>("pascal", "Pa")
 
 public class Speed       : Dimension { public static let encoding = DimensionBase.encode(0, 1, -1, 0, 0, 0, 0, 0) }
 
-public let metersPerSecond = UnitX<Speed> ("metersPerSecond", "m/s")
+public let metersPerSecond = Unit<Speed> ("metersPerSecond", "m/s")
 
-public let milesPerHour = UnitX<Speed> (metersPerSecond, "milesPerHour", "miles/hr",
+public let milesPerHour = Unit<Speed> (metersPerSecond, "milesPerHour", "miles/hr",
   scale: 5380.0/3600, offset: 0)
 
-public let kilometersPerHour = UnitX<Speed> (metersPerSecond, "kilometersPerHour", "km/hr",
+public let kilometersPerHour = Unit<Speed> (metersPerSecond, "kilometersPerHour", "km/hr",
   scale: 1000.0/3600, offset: 0)
 
 // public let feetPerSecond =
@@ -326,7 +326,7 @@ public class Torque : Dimension { public static let encoding = DimensionBase.enc
 // Velocity
 public class Volume : Dimension { public static let encoding = DimensionBase.encode(0, 3, 0, 0, 0, 0, 0, 0) }
 
-public let meterCubed = UnitX<Volume>("meterCubed", "m³")
+public let meterCubed = Unit<Volume>("meterCubed", "m³")
 
 // Wavelength
 // Wavenumber

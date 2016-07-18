@@ -14,7 +14,7 @@ public func compose<T, U, V> (f: (U) -> V, g: (T) -> U) -> (T) -> V {
 // https://en.wikipedia.org/wiki/SI_derived_unit
 // https://en.wikipedia.org/wiki/Base_unit_(measurement)
 
-// MARK: UnitX
+// MARK: Unit
 
 /**
  * A `Unit` is a defined amount of a physical quantity.  `Units` fall into two categories, 'base
@@ -41,10 +41,10 @@ public func compose<T, U, V> (f: (U) -> V, g: (T) -> U) -> (T) -> V {
  * relationshp) or proceeds from Y up to its root and then down to X.
  *
  */
-public final class UnitX<D:Dimension> {
+public final class Unit<D:Dimension> {
   
   /** The `Unit` optional parent. */
-  public let parent : UnitX<D>!
+  public let parent : Unit<D>!
   
   /** The `Unit` scale. */
   public let scale  : Scale
@@ -59,7 +59,7 @@ public final class UnitX<D:Dimension> {
   public let symbol : String
   
   /** The `Unit` root unit; can be a 'base unit' or a 'derived unit'  */
-  public var root : UnitX<D> {
+  public var root : Unit<D> {
     return nil == parent ? self : parent.root
   }
   
@@ -69,12 +69,12 @@ public final class UnitX<D:Dimension> {
   }
   
   /** Check if `unit` is the `parent` of `self` */
-  func isParent (_ unit: UnitX<D>) -> Bool {
+  func isParent (_ unit: Unit<D>) -> Bool {
     return parent === unit
   }
 
   /** Check if `unit` is an ancestor (including `self`) of `self` */
-  func isAncestor (_ unit: UnitX<D>) -> Bool {
+  func isAncestor (_ unit: Unit<D>) -> Bool {
     return unit === self || (parent?.isAncestor(unit) ?? false)
   }
   
@@ -96,7 +96,7 @@ public final class UnitX<D:Dimension> {
   }
 
   /** Create an instance of a 'scaled unit' */
-  public init (_ parent: UnitX<D>, _ name: String, _ symbol: String, scale: Scale, offset: Double = 0.0) {
+  public init (_ parent: Unit<D>, _ name: String, _ symbol: String, scale: Scale, offset: Double = 0.0) {
     self.parent = parent
     self.scale  = scale
     self.offset = offset
@@ -107,13 +107,13 @@ public final class UnitX<D:Dimension> {
   }
   
   /** Create an instance.  The `name` and `symbol` are derived from the `parent` and `scale. */
-  public convenience init (_ parent: UnitX<D>, scale: Scale) {
+  public convenience init (_ parent: Unit<D>, scale: Scale) {
     self.init (parent, (scale.name ?? "") + parent.name, (scale.symbol ?? "") + parent.symbol,
       scale: scale)
   }
 
   /** Create an instance */
-  public convenience init (_ parent: UnitX<D>, _ name: String, _ symbol: String, scale: Double, offset: Double = 0.0) {
+  public convenience init (_ parent: Unit<D>, _ name: String, _ symbol: String, scale: Double, offset: Double = 0.0) {
     self.init (parent, name, symbol,
       scale: Scale.value(scale),
       offset: offset)
@@ -190,7 +190,7 @@ public final class UnitX<D:Dimension> {
    *
    * - return: the convert value in `self`.
    */
-  public func convert (_ value: Double, unit: UnitX<D>) -> Double {
+  public func convert (_ value: Double, unit: Unit<D>) -> Double {
     // It is important that if unit is a descendent of self.unit then the conversions only
     // progress up to self.unit.  This allows users to set their own 'effective base' unit, 
     // particularly important for a time epoch (J2000, Unix, etc).
@@ -217,7 +217,7 @@ public final class UnitX<D:Dimension> {
    *
    * - return: Function to convert from `unit` to `self`
    */
-  public static func converter (_ srcUnit: UnitX<D>, _ tgtUnit: UnitX<D>) -> (Double) -> Double {
+  public static func converter (_ srcUnit: Unit<D>, _ tgtUnit: Unit<D>) -> (Double) -> Double {
     if srcUnit === tgtUnit {
       return { $0 }
     }
@@ -227,8 +227,8 @@ public final class UnitX<D:Dimension> {
     }
       
     else if srcUnit.isAncestor (tgtUnit) {
-      return compose (f: UnitX.converter (srcUnit, srcUnit.parent),
-                      g: UnitX.converter (srcUnit.parent, tgtUnit))
+      return compose (f: Unit.converter (srcUnit, srcUnit.parent),
+                      g: Unit.converter (srcUnit.parent, tgtUnit))
     }
       
     else if tgtUnit.isParent (srcUnit) {
@@ -236,8 +236,8 @@ public final class UnitX<D:Dimension> {
     }
       
     else if tgtUnit.isAncestor(srcUnit) {
-      return compose (f: UnitX.converter (tgtUnit.parent, tgtUnit),
-                      g: UnitX.converter (srcUnit, tgtUnit.parent))
+      return compose (f: Unit.converter (tgtUnit.parent, tgtUnit),
+                      g: Unit.converter (srcUnit, tgtUnit.parent))
     }
     
     else {
@@ -246,7 +246,7 @@ public final class UnitX<D:Dimension> {
   }
 }
 
-extension UnitX : Equatable {}
-public func == <D:Dimension> (lhs:UnitX<D>, rhs:UnitX<D>) -> Bool {
+extension Unit : Equatable {}
+public func == <D:Dimension> (lhs:Unit<D>, rhs:Unit<D>) -> Bool {
   return lhs === rhs
 }
