@@ -35,7 +35,7 @@
 		3C2895481BFFB7A900C85BD2 /* SBUnits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBUnits.h; sourceTree = "<group>"; };
 		3C28954A1BFFB7A900C85BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C28954F1BFFB7A900C85BD2 /* SBUnitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBUnitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C2895561BFFB7A900C85BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C2895561BFFB7A900C85BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		3C2895B91BFFB97200C85BD2 /* Dimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimension.swift; sourceTree = "<group>"; };
 		3C2895BA1BFFB97200C85BD2 /* Quantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quantity.swift; sourceTree = "<group>"; };
 		3C2895BB1BFFB97200C85BD2 /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
@@ -218,6 +218,7 @@
 					};
 					3C28954E1BFFB7A900C85BD2 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -428,6 +429,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.opuslogica.SBUnitsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -441,6 +443,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.opuslogica.SBUnitsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

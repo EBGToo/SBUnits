@@ -211,24 +211,24 @@ public enum Scale { // ScaleFactor
   /** The `Scale` factor */
   var factor : Double {
     switch self {
-    case let prefix (factor, _, _): return factor
-    case let value (factor): return factor
+    case let .prefix (factor, _, _): return factor
+    case let .value (factor): return factor
     }
   }
   
   /** The `Scale` name */
   var name : String? {
     switch self {
-    case let prefix (_, name, _): return name
-    case value: return nil
+    case let .prefix (_, name, _): return name
+    case .value: return nil
     }
   }
   
   /** The `Scale` symbol */
   var symbol : String? {
     switch self {
-    case let prefix (_, _, symbol): return symbol
-    case value: return nil
+    case let .prefix (_, _, symbol): return symbol
+    case .value: return nil
     }
   }
   
