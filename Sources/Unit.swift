@@ -6,7 +6,7 @@
 //  Copyright © 2015 Opus Logica Inc. All rights reserved.
 //
 
-public func compose<T, U, V> (f: (U) -> V, g: (T) -> U) -> (T) -> V {
+public func compose<T, U, V> (f: @escaping (U) -> V, g: @escaping (T) -> U) -> (T) -> V {
   return { (x:T) in f (g (x)) }
 }
 
