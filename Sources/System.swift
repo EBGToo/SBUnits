@@ -5,13 +5,7 @@
 //  Created by Ed Gamble on 11/1/15.
 //  Copyright © 2015 Opus Logica Inc. All rights reserved.
 //
-#if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
-  import Darwin.C.math // M_PI
-#else
-  import Glibc
-#endif
-
-let π = M_PI
+let π = Double.pi
 
 // MARK: Base Units
 

@@ -20,7 +20,7 @@ class QuantityTest: XCTestCase {
   }
   
   func assertNearly<D: SBUnits.Dimension> (_ q1: Quantity<D>, _ q2: Quantity<D>) {
-    XCTAssertTrue(abs((q1 - q2).valueToRoot) < DBL_EPSILON)
+    XCTAssertTrue(abs((q1 - q2).valueToRoot) < .ulpOfOne)
   }
   
   func testDescription() {
@@ -150,16 +150,16 @@ class QuantityTest: XCTestCase {
   
   func testAngle () {
     
-    XCTAssertEqual(Quantity<Angle>(value: 2 * M_PI, unit: radian),
+    XCTAssertEqual(Quantity<Angle>(value: 2 * .pi, unit: radian),
       Quantity<Angle>(value: 360, unit: degree))
     
-    XCTAssertEqual(Quantity<Angle>(value: M_PI, unit: radian),
+    XCTAssertEqual(Quantity<Angle>(value: .pi, unit: radian),
       Quantity<Angle>(value: 180, unit: degree))
 
-    XCTAssertEqual(Quantity<Angle>(value: M_PI_2, unit: radian),
+    XCTAssertEqual(Quantity<Angle>(value: .pi/2, unit: radian),
       Quantity<Angle>(value: 90, unit: degree))
 
-    XCTAssertEqual(Quantity<Angle>(value: M_PI_4, unit: radian),
+    XCTAssertEqual(Quantity<Angle>(value: .pi/4, unit: radian),
       Quantity<Angle>(value: 45, unit: degree))
   }
   
