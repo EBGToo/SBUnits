@@ -47,8 +47,8 @@ number with its unit.
 A dimension identifies commensurate physical quantities. There is a defined set of `base 
 dimensions` as: Mass (M), Length(L), Time(T), Current(I), Temperature(Θ), Intensity(J), Amount(N),
 and (Planar) Angle(R). [Note Planar Angle and Spherical Angle are non-standard; we use one but
-not the other].  From these `base dimensions`, `derived dimensions` can be construct with 
-exponents of the base. For example a unit for `Area` is L² which is 'encoded' from the base 
+not the other].  From these `base dimensions`, `derived dimensions` can be constructed with 
+exponents of the bases. For example a unit for `Area` is L² which is 'encoded' from the base 
 dimensions as L with '2' and all others with '0'; a unit of Acceleration is L/T² and is 'encode' as
 L with '1', T with '-2' and all others with '0'
 
@@ -56,7 +56,7 @@ Only units with the same dimension can be added/subtracted with one another. Whe
 multiplied the exponents of the base dimensions are added to produce another dimension.
 
 For type-safe operations on units, we designate `Dimension` as a 'type parameter' in `Unit` and 
-`Quantity` type declarations. This allows a statically types system of units (with an exception
+`Quantity` type declarations. This allows a statically typed system of units (with an exception
 or two)
 
 ### Units
@@ -69,7 +69,7 @@ Every `Unit`, base or dervied, measures a quantity in a specified Dimension. Uni
 'L'; the 'scaled unit' of 'kilometer' is 1000 meters.  A base unit of 'kelvin' has dimension 'Θ'; 
 the 'scaled unit' of 'celsius' has a scale of 1.0 and an offset of -273.15 from kelvin.
 
-Producs or Ratios of units with an offset is ill-defined.
+Products or Ratios of units with an offset is ill-defined.
 
 ### Quantities
 
